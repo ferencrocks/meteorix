@@ -1,0 +1,40 @@
+@STAGE_BG: #111;
+
+body {
+  background-color: cadetblue;
+}
+
+#stage {
+  position: relative;
+  border: 1px solid #000;
+  margin: 0 auto;
+  background-color: @STAGE_BG;
+}
+
+.cube {
+  position: absolute;
+  border-radius: 10%;
+  border-width: 1px;
+  border-style: solid;
+
+  &.empty {
+    background-color: @STAGE_BG !important;
+  }
+
+  &.color-R {
+    border-color: red;
+    background-color: red;
+  }
+  &.color-G {
+    border-color: green;
+    background-color: green;
+  }
+  &.color-B {
+    border-color: blue;
+    background-color: blue;
+  }
+  &.color-Y {
+    border-color: yellow;
+    background-color: yellow;
+  }
+}

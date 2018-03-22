@@ -9,17 +9,32 @@ import Lobby from '../imports/ui/lobby/Lobby';
 import SignIn from '../imports/ui/SignIn';
 import PlayRoom from '../imports/ui/room/PlayRoom';
 
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import reducers from '../imports/api/redux/reducers';
+
+const store = createStore(
+  reducers,
+  applyMiddleware(thunk)
+);
+
+const GameContainerWithStore = (props) =>
+  <Provider store={store}>
+    <GameContainer {...props} />
+  </Provider>;
+
 FlowRouter.route('/', {
   name: 'lobby',
   action() {
-    mount(GameContainer, {content: <Lobby />})
+    mount(GameContainerWithStore, {content: <Lobby />})
   }
 });
 
 FlowRouter.route('/signin', {
   name: 'signIn',
   action() {
-    mount(GameContainer, {content: <SignIn />})
+    mount(GameContainerWithStore, {content: <SignIn />})
   }
 });
 
@@ -27,7 +42,7 @@ FlowRouter.route('/room/:roomId', {
   name: 'room',
   action(params) {
     if (params.roomId) {
-      mount(GameContainer, {content: <PlayRoom roomId={params.roomId}/>});
+      mount(GameContainerWithStore, {content: <PlayRoom roomId={params.roomId}/>});
     }
     else {
       // #todo: some 404 here

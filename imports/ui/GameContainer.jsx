@@ -1,13 +1,52 @@
 import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
+
+import {
+  KEYBOARD_UP,
+  keyboardUp,
+  KEYBOARD_DOWN,
+  keyboardDown,
+  KEYBOARD_LEFT,
+  keyboardLeft,
+  KEYBOARD_RIGHT,
+  keyboardRight
+} from '../api/redux/keyboard/actions';
+import connectMeteor from 'react-redux-meteor-data';
 
 class GameContainer extends Component
 {
   static propTypes = {
     content: PropTypes.object.isRequired,
-    currentUser: PropTypes.object
+    currentUser: PropTypes.object,
+    dispatch: PropTypes.func,
+
+    onArrowUp: PropTypes.func.isRequired,
+    onArrowDown: PropTypes.func.isRequired,
+    onArrowLeft: PropTypes.func.isRequired,
+    onArrowRight: PropTypes.func.isRequired,
   };
+
+  componentDidMount() {
+    document.addEventListener('keydown', (evt) => {
+      switch (evt.key) {
+        case KEYBOARD_UP:
+            this.props.onArrowUp();
+          break;
+
+        case KEYBOARD_DOWN:
+            this.props.onArrowDown();
+          break;
+
+        case KEYBOARD_LEFT:
+            this.props.onArrowLeft();
+          break;
+
+        case KEYBOARD_RIGHT:
+            this.props.onArrowRight();
+          break;
+      }
+    });
+  }
 
   render() {
     return (
@@ -20,8 +59,28 @@ class GameContainer extends Component
   }
 }
 
-export default createContainer(() => {
+const mapTrackerToProps = () => {
+  Meteor.subscribe('keyboardDDP');
+
+  const user = Meteor.user();
   return {
-    currentUser: Meteor.user()
-  };
-}, GameContainer);
+    currentUser: user
+  }
+};
+
+const mapStateToProps = (state) => {
+  return {};
+};
+
+const mapDispatchToProps = dispatch => ({
+  onArrowUp: () => dispatch(keyboardUp()),
+  onArrowDown: () => dispatch(keyboardDown()),
+  onArrowLeft: () => dispatch(keyboardLeft()),
+  onArrowRight: () => dispatch(keyboardRight())
+});
+
+export default connectMeteor(
+  mapTrackerToProps,
+  mapStateToProps,
+  mapDispatchToProps
+)(GameContainer);

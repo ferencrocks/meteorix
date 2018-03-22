@@ -17,7 +17,12 @@
     "react-addons-transition-group": "^15.5.2",
     "react-addons-update": "^15.5.2",
     "react-dom": "^15.5.4",
-    "react-mounter": "^1.2.0"
+    "react-mounter": "^1.2.0",
+    "react-redux": "^5.0.7",
+    "react-redux-meteor": "^4.5.1",
+    "react-redux-meteor-data": "^0.5.8",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "babel-plugin-transform-class-properties": "^6.24.1"

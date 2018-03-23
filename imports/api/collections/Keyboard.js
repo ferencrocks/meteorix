@@ -9,7 +9,6 @@ if (Meteor.isServer) {
 
     const keyboardHandler = Keyboard.find({}).observeChanges({
       added: function (id, data) {
-        console.log(data);
         //_this.changed("keyboard", id, fields);
       }
     });

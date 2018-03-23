@@ -1,11 +1,12 @@
 import { Meteor } from 'meteor/meteor';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
+import { Stages } from './Stages';
+
 export const Rooms = new Meteor.Collection('rooms');
 Rooms.attachSchema(new SimpleSchema({
   name: {type: String},
-  width: {type: Number},
-  height: {type: Number},
+  stageId: {type: String},
 
   users: {type: Array},
   'users.$': {type: Object, blackbox: true},
@@ -15,7 +16,19 @@ Rooms.attachSchema(new SimpleSchema({
   isStarted: {type: Boolean}
 }));
 
+Rooms.helpers({
+  getStage() {
+    return Stages.findOne({ _id: this.stageId });
+  }
+});
+
 if (Meteor.isServer) {
+  export function findRoomOfUser(userId) {
+    return Rooms.findOne({
+      'users': { $elemMatch: {_id: userId} }
+    });
+  }
+
   Rooms.allow({
     insert: (userId, room) => {
       return userId; // logged in users can create rooms

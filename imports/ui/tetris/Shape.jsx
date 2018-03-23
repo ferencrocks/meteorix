@@ -8,7 +8,7 @@ export default class Shape extends Component
   };
 
   render() {
-    this.props.matrix.map((row, rowIdx) => row.map((col, colIdx) => {
+    this.props.matrix.map((row, rowIdx) => row.map((block, colIdx) => {
 
     }));
   }

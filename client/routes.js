@@ -12,7 +12,7 @@ import PlayRoom from '../imports/ui/room/PlayRoom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import reducers from '../imports/api/redux/reducers';
+import reducers from '../imports/ui/redux/reducers';
 
 const store = createStore(
   reducers,

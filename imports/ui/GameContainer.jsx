@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
 
+import { GameState } from '../api/collections/GameState';
+
 import {
   KEYBOARD_UP,
   keyboardUp,
@@ -10,7 +12,7 @@ import {
   keyboardLeft,
   KEYBOARD_RIGHT,
   keyboardRight
-} from '../api/redux/keyboard/actions';
+} from './redux/keyboard/actions';
 import connectMeteor from 'react-redux-meteor-data';
 
 class GameContainer extends Component
@@ -61,10 +63,14 @@ class GameContainer extends Component
 
 const mapTrackerToProps = () => {
   Meteor.subscribe('keyboardDDP');
+  Meteor.subscribe('gameState');
+
+  console.log(GameState.findOne());
 
   const user = Meteor.user();
   return {
-    currentUser: user
+    currentUser: user,
+    gameState: GameState.findOne()
   }
 };
 

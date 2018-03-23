@@ -1,4 +1,4 @@
-import { Keyboard } from '../../collections/Keyboard';
+import { Keyboard } from '../../../api/collections/Keyboard';
 
 export const KEYBOARD_UP = 'ArrowUp';
 export const keyboardUp = () => dispatch => {

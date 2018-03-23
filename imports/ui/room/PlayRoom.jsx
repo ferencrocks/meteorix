@@ -2,20 +2,15 @@ import { Meteor } from 'meteor/meteor';
 import React, {Component, PropTypes} from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 
-import { Rooms } from '../../api/collections/Rooms';
 import Stage from '../tetris/Stage';
 
-export class PlayRoom extends Component
+export default class PlayRoom extends Component
 {
   static propTypes = {
-    room: PropTypes.object
+    room: PropTypes.object,
+    stage: PropTypes.object,
+    gameState: PropTypes.object
   };
-
-  componentWillMount() {
-    document.addEventListener('keydown', (evt) => {
-
-    });
-  }
 
   render() {
     const room = this.props.room;
@@ -51,11 +46,3 @@ export class PlayRoom extends Component
     );
   }
 }
-
-export default PlayRoomReactive = createContainer(({ roomId }) => {
-  Meteor.subscribe('rooms');
-
-  return {
-    room: Rooms.findOne(roomId)
-  };
-}, PlayRoom);

@@ -24,3 +24,5 @@ useraccounts:bootstrap
 accounts-password
 react-meteor-data
 less
+dburles:collection-helpers
+percolate:migrations

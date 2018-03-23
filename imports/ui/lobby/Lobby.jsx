@@ -39,6 +39,8 @@ class Lobby extends Component
   handleCreateRoom(roomName) {
     Rooms.insert({
       name: roomName.value,
+      stageId: '5ezdvbGPhvbryfL5Z',
+
       users: [this.props.currentUser],
       creator: this.props.currentUser._id,
       isOpen: true,
